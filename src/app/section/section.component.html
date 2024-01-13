@@ -1,0 +1,4 @@
+<section *ngFor="let section of config" class="contained">
+    <h2 class="section-title ff-damion">{{ section.header }}</h2>
+    <app-component *ngFor="let component of section.components" [config]="[component]"></app-component>
+</section>

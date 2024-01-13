@@ -1,0 +1,29 @@
+<div *ngFor="let component of config" class="contained">
+    <div *ngIf="component.category === 'text-simple'">
+        <app-text-simple></app-text-simple>
+    </div>
+    <div class="card1" *ngIf="component.category === 'card1'">
+        <app-card1 [config]="component"></app-card1>
+    </div>
+    <div *ngIf="component.category === 'card2'">
+        <app-card2 [config]="component"></app-card2>
+    </div>
+    <div *ngIf="component.category === 'header'">
+        <app-header></app-header>
+    </div>
+    <div *ngIf="component.category === 'highlights'">
+        <app-highlights [config]="component"></app-highlights>
+    </div>
+    <div *ngIf="component.category === 'article-navigated'">
+        <app-article-navigated [config]="component"></app-article-navigated>
+    </div>
+    <div *ngIf="component.category === 'paragraph-column'">
+        <app-paragraph-column></app-paragraph-column>
+    </div>
+    <div *ngIf="component.category === 'paragraph-column-large'">
+        <app-paragraph-column-large [config]="component"></app-paragraph-column-large>
+    </div>
+    <div *ngIf="component.category === 'contact-form'">
+        <app-contact-form [config]="component"></app-contact-form>
+    </div>
+</div>

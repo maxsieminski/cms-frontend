@@ -1,0 +1,4 @@
+<div class="fixed w-full h-full">
+    <app-admin-card *ngFor="let section of sections" [config]="getCardConfig(section)"></app-admin-card>
+    <app-admin-card [config]="defaultCreateNewCardConfig"></app-admin-card>
+</div>

@@ -1,0 +1,11 @@
+<div class="row flex-alig-center mt-50">
+    <div class="col-balance">
+        <img src="{{ config.image }}" alt="">
+    </div>
+    <div class="col-balance">
+        <span class="fc-primary fs-h3">{{ config.header }}</span>
+        <p *ngFor="let paragraph of config.paragraphs">
+            {{ paragraph }}
+        </p>
+    </div>
+</div>

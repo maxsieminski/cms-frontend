@@ -1,0 +1,7 @@
+<div class="main">
+  <span class="fade"></span>
+  <app-navbar *ngIf="!isAdmin"></app-navbar>
+  <app-admin-header *ngIf="isAdmin"></app-admin-header>
+  <router-outlet></router-outlet>
+  <app-footer *ngIf="!isAdmin"></app-footer>
+</div>

@@ -1,0 +1,12 @@
+<div class="col-balance">
+    <form class="message-form mt-50 mb-25">
+        <span class="fs-h4 fc-primary mb-15">{{config.header}}</span>
+        <div class="row mb-20">
+            <input type="text" id="message-name" placeholder="Your name" aria-label="Input for your name" required="">
+            <input type="email" class="ml-a" id="message-email" placeholder="Your email" aria-label="Input for email" required="">
+        </div>
+        <input type="text" id="message-subject" aria-label="Input for your message subject" class="mb-20" placeholder="Subject">
+        <textarea id="message-message" rows="5" placeholder="Write a message" aria-label="Input for writing message"></textarea>
+    </form>        
+    <button (click)="sendRequest()" class="btn-bg2 color-black border-round border-black mt-20">Send message</button>
+</div>

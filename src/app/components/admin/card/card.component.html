@@ -1,0 +1,20 @@
+<div class="float-left mx-10 my-10">
+    <div class="bg-white shadow-lg rounded-lg p-6 space-y-4">
+        <div class="flex items-center space-x-4">
+            <div class="{{(config.color === undefined ? circleClasses['purple'] : circleClasses[config.color])}}">
+            </div>
+            <div>
+                <div class="text-gray-600 text-2xl font-semibold">{{config.header}}</div>
+                <div class="text-gray-900 text-sm">
+                    {{config.description}}
+                </div>
+            </div>
+        </div>
+        <button *ngIf="config.link1 !== ''" class="{{(config.color === undefined ? buttonClasses['purple'] : buttonClasses[config.color])}}">
+            <a routerLink={{config.link1}} routerLinkActive="true">{{config.link1_text}}</a>
+        </button>
+        <button *ngIf="config.editable" class="{{(config.color === undefined ? buttonClasses['purple'] : buttonClasses[config.color])}}">
+            <a routerLink="{{config.link2}}" routerLinkActive="true">Edit</a>
+        </button>
+    </div>
+</div>

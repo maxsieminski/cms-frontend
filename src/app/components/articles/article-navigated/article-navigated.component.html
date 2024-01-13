@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-wide">
+        <div *ngFor="let paragraph of config.paragraphs">
+            <img src="{{ paragraph.image }}" class="img-unheight" alt="" id="{{ _buildParagraphId(paragraph) }}">
+            <span class="fs-h3 mt-25">{{ paragraph.header }}</span>
+            <p>
+                {{ paragraph.text }}
+            </p>
+        </div>
+    </div>
+
+    <div class="col-slim order-tab-1">
+        <div class="card-side card-side-navigation">
+            <h3 class="no-margin ff-damion">{{ config.header }}</h3>
+            <hr>
+            <a *ngFor="let paragraph of config.paragraphs" href="#{{_buildParagraphId(paragraph)}}">{{ paragraph.header }}</a>
+        </div>
+    </div>
+</div>

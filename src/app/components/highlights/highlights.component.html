@@ -1,0 +1,16 @@
+<div class="contained">
+    <app-text-simple [text]="config.header!" ></app-text-simple>
+</div>
+<div class="contained row flex-just-center">
+    <div class="col-full">
+        <hr>
+    </div>
+    <div *ngFor="let paragraph of config.paragraphs" class="col-tri">
+        <i class="bi {{ paragraph.image }} fs-h2"></i>
+        <h3 class="mt-10 ff-damion">{{ paragraph.header }}</h3>
+        <p>{{ paragraph.text }}</p>
+    </div>
+</div>
+<a href="service.html" class="btn-bg2 border-round mt-25">
+    View our services
+</a>

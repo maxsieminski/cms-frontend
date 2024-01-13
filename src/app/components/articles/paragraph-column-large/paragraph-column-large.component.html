@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-balance">
+        <span class="fc-primary fs-h2">
+            {{ config.header }}
+        </span>
+        <p *ngFor="let paragraph of config.paragraphs">
+            {{ paragraph.text }}
+        </p>
+        <a href="{{ config.href }}" class="btn-bg1 mt-25 border-round">{{ config.href_text }}</a>
+    </div>
+    <div class="col-balance">
+        <img src="{{ config.image }}" alt="">
+    </div>
+    <div class="sticky-img-dual-spacer"></div>    
+</div>
