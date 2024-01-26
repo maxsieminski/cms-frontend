@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { cms_types } from '../../../types';
 import { cms_defs } from '../../../defs';
-import { DataService } from '../../../services/admin/data.service';
+import { DataService } from '../../../services/data.service';
 import { ActivatedRoute } from '@angular/router';
 import { AdminCardComponent } from '../../../components/admin/card/card.component';
 import { CommonModule } from '@angular/common';

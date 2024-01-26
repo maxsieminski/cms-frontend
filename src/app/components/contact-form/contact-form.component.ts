@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { cms_types } from '../../types';
-import { DataService } from '../../services/admin/data.service';
+import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
 
 @Component({

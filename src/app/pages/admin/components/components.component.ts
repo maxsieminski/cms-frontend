@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminHeaderComponent } from '../../../components/admin/adminHeader/header.component';
-import { DataService } from '../../../services/admin/data.service';
+import { DataService } from '../../../services/data.service';
 import { cms_types } from '../../../types';
 import { cms_defs } from '../../../defs';
 import { CommonModule } from '@angular/common';

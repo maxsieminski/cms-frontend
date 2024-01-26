@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AdminCardComponent } from '../../../components/admin/card/card.component';
 import { cms_types } from '../../../types';
 import { cms_defs } from '../../../defs';
-import { DataService } from '../../../services/admin/data.service';
+import { DataService } from '../../../services/data.service';
 
 @Component({
   selector: 'app-home',

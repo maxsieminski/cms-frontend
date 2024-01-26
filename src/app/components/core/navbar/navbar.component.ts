@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { DataService } from '../../../services/admin/data.service';
+import { RouterLink } from '@angular/router';
+import { DataService } from '../../../services/data.service';
 import { cms_types } from '../../../types';
 import { CommonModule } from '@angular/common';
 import { cms_defs } from '../../../defs';

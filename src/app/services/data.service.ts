@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { cms_defs } from '../../defs';
-import { cms_types } from '../../types';
+import { cms_defs } from '../defs';
+import { cms_types } from '../types';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { cms_types } from '../../../types';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { DataService } from '../../../services/admin/data.service';
+import { DataService } from '../../../services/data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { cms_defs } from '../../../defs';
