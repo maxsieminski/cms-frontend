@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { IndexComponent } from './pages/index/index.component';
 import { AboutComponent } from './pages/about/about.component';
-import { ServiceComponent } from './pages/service/service.component';
 import { IndustriesComponent } from './pages/industries/industries.component';
 import { BlogComponent } from './pages/blog/blog.component';
 import { AdminHomeComponent } from './pages/admin/home/home.component';
@@ -13,6 +12,8 @@ import { AdminParagraphsComponent } from './pages/admin/paragraphs/paragraphs.co
 import { AdminEditorComponent } from './pages/admin/editor/editor.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { InquriesComponent } from './pages/admin/inquries/inquries.component';
+import { LoginComponent } from './pages/admin/login/login.component';
+import { adminGuard } from './services/admin.guard';
 
 export const routes: Routes = [
     { path: 'home', component: IndexComponent },
@@ -20,23 +21,24 @@ export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'contact', component: ContactComponent },
     { path: 'industries', component: IndustriesComponent },
-    { path: 'admin', component: AdminIndexComponent, children: [
-        { path: '', component: AdminHomeComponent, title: 'Admin' },
-        { path: 'inquries', component: InquriesComponent, title: 'Admin: Inquiries' },
-        { path: 'inquries/:inquryId', component: AdminEditorComponent },
-        { path: 'pages', component: AdminPagesComponent, title: 'Admin: Pages' },
-        { path: 'pages/new', component: AdminEditorComponent, title: 'Admin: New Page' },
-        { path: 'pages/:pageId/edit', component: AdminEditorComponent, title: 'Admin: Edit Pages' },
-        { path: 'pages/:pageId/sections', component: AdminSectionsComponent, title: 'Admin: Sections'},
-        { path: 'pages/:pageId/sections/new', component: AdminEditorComponent, title: 'Admin: New Section'},
-        { path: 'pages/:pageId/sections/:sectionId/edit', component: AdminEditorComponent, title: 'Admin: New Section' },
-        { path: 'pages/:pageId/sections/:sectionId/components', component: AdminComponentsComponent, title: 'Admin: Components' },
-        { path: 'pages/:pageId/sections/:sectionId/components/new', component: AdminEditorComponent, title: 'Admin: New Component' },
-        { path: 'pages/:pageId/sections/:sectionId/components/:componentId/edit', component: AdminEditorComponent, title: 'Admin: Edit Components' },
-        { path: 'pages/:pageId/sections/:sectionId/components/:componentId/paragraphs', component: AdminParagraphsComponent, title: 'Admin: Paragraphs' },
-        { path: 'pages/:pageId/sections/:sectionId/components/:componentId/paragraphs/new', component: AdminEditorComponent, title: 'Admin: New Paragraph' },
-        { path: 'pages/:pageId/sections/:sectionId/components/:componentId/paragraphs/:paragraphId/edit', component: AdminEditorComponent, title: 'Admin: Edit Paragraphs' },
-        { path: '**', redirectTo: '/'}
+    { path: 'login', component: LoginComponent, title: 'Admin: Login' },
+    { path: 'admin', component: AdminIndexComponent, canActivate: [adminGuard], children: [
+        { path: '', component: AdminHomeComponent, canActivate: [adminGuard], title: 'Admin' },
+        { path: 'inquries', component: InquriesComponent, canActivate: [adminGuard], title: 'Admin: Inquiries' },
+        { path: 'inquries/:inquryId', canActivate: [adminGuard], component: AdminEditorComponent },
+        { path: 'pages', component: AdminPagesComponent, canActivate: [adminGuard], title: 'Admin: Pages' },
+        { path: 'pages/new', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: New Page' },
+        { path: 'pages/:pageId/edit', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: Edit Pages' },
+        { path: 'pages/:pageId/sections', component: AdminSectionsComponent, canActivate: [adminGuard], title: 'Admin: Sections'},
+        { path: 'pages/:pageId/sections/new', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: New Section'},
+        { path: 'pages/:pageId/sections/:sectionId/edit', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: New Section' },
+        { path: 'pages/:pageId/sections/:sectionId/components', component: AdminComponentsComponent, canActivate: [adminGuard], title: 'Admin: Components' },
+        { path: 'pages/:pageId/sections/:sectionId/components/new', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: New Component' },
+        { path: 'pages/:pageId/sections/:sectionId/components/:componentId/edit', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: Edit Components' },
+        { path: 'pages/:pageId/sections/:sectionId/components/:componentId/paragraphs', component: AdminParagraphsComponent, canActivate: [adminGuard], title: 'Admin: Paragraphs' },
+        { path: 'pages/:pageId/sections/:sectionId/components/:componentId/paragraphs/new', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: New Paragraph' },
+        { path: 'pages/:pageId/sections/:sectionId/components/:componentId/paragraphs/:paragraphId/edit', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: Edit Paragraphs' },
+        { path: '**', redirectTo: ''}
     ]},
     { path: '**', redirectTo: '/home'}
 ];

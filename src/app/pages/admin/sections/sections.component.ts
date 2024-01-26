@@ -19,6 +19,7 @@ import { CommonModule } from '@angular/common';
 export class AdminSectionsComponent {
   public sections: cms_types.api.SectionResponse[] = [cms_defs.defaultSectionResponse];
   public defaultCreateNewCardConfig = cms_defs.defaultCreateNewCardConfig;
+  public defaultSaveCardConfig = cms_defs.defaultSaveCardConfig;
 
   public constructor(public dataService: DataService, private _route: ActivatedRoute) { }
 

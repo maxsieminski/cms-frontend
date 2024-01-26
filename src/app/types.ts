@@ -102,6 +102,18 @@ export module cms_types {
             content: string;
         }
 
+        export interface AuthUserData {
+            id: number;
+            email: string;
+            name: string | undefined;
+            position: string | undefined;
+        }
+
+        export interface AuthResponse {
+            data: AuthUserData;
+            token: string;
+        }
+
         export type ResponseAny = cms_types.api.ParagraphResponse | cms_types.api.ComponentResponse | cms_types.api.ComponentResponse | cms_types.api.PageResponse;
     }
 };

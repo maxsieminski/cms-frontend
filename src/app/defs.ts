@@ -2,9 +2,9 @@ import { cms_types } from "./types";
 
 
 export module cms_defs {
-    export const backendHost = process.env["BACKEND_HOST"] ?? 'localhost';
-    export const backendPort = process.env["BACKEND_PORT"] ?? '3000';
-    export const backendUrl = `https://${backendHost}:${backendPort}`;
+    export const backendHost = 'localhost';
+    export const backendPort =  '3000';
+    export const backendUrl = `http://${backendHost}:${backendPort}`;
     export const title = 'Kancelaria Adwokacka';
 
     export module objects {
@@ -110,5 +110,16 @@ export module cms_defs {
         link2: "",
         link1_text: "Create",
         link2_text: ""
+    }
+
+    export const defaultSaveCardConfig: cms_types.frontend.admin.CardConfig = {
+        header: "Save",
+        description: "Save changes",
+        editable: false,
+        link1: "save",
+        link2: "",
+        link1_text: "Save",
+        link2_text: "",
+        color: 'blue'
     }
 }
