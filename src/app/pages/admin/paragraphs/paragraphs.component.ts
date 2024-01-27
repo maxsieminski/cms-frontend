@@ -18,14 +18,15 @@ import { DataService } from '../../../services/data.service';
 })
 export class AdminParagraphsComponent {
   public paragraphs: cms_types.api.ParagraphResponse[] = [cms_defs.defaultParagraphResponse];
+  public paragraphsConfigs: cms_types.frontend.admin.CardConfig[] = [];
   public defaultCreateNewCardConfig = cms_defs.defaultCreateNewCardConfig;
 
   public constructor(public dataService: DataService, private _route: ActivatedRoute) { }
 
-  public getCardConfig(paragraph: cms_types.api.ParagraphResponse): cms_types.frontend.admin.CardConfig {
+  public getCardConfig(paragraph: cms_types.api.ParagraphResponse, paragraphCount: number): cms_types.frontend.admin.CardConfig {
     return { 
-      header: paragraph.header ?? "error",
-      description: "",
+      header: `Paragraph ${paragraphCount}`,
+      description: `${paragraph.text?.slice(0, 20)}...`,
       editable: true,
       link1: ``,
       link2: `${paragraph.id}/edit`,
@@ -35,10 +36,18 @@ export class AdminParagraphsComponent {
     }
   }
 
+  precomputeConfigs() {
+    this.paragraphsConfigs = this.paragraphs.map((paragraph, index) => 
+      this.getCardConfig(paragraph, index + 1));
+  }
+
   ngOnInit() {
     this._route.params.subscribe(params => {
       const componentId = Number.parseInt(params['componentId']);
-      this.dataService.getParagraphs(componentId).subscribe(paragraphs => this.paragraphs = Array.isArray(paragraphs) ? paragraphs : [paragraphs]);
+      this.dataService.getParagraphs(componentId).subscribe(paragraphs => {
+        this.paragraphs = Array.isArray(paragraphs) ? paragraphs : [paragraphs]
+        this.precomputeConfigs();
+      });
     });
   }
 }

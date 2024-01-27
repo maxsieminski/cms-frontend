@@ -20,14 +20,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AdminComponentsComponent {
   public components: cms_types.api.ComponentResponse[] = [cms_defs.defaultComponentResponse];
+  public componentsConfigs: cms_types.frontend.admin.CardConfig[] = [];
   public defaultCreateNewCardConfig = cms_defs.defaultCreateNewCardConfig;
 
   public constructor(public dataService: DataService, private _route: ActivatedRoute) { }
 
-  public getCardConfig(section: cms_types.api.ComponentResponse): cms_types.frontend.admin.CardConfig {
+  public getCardConfig(section: cms_types.api.ComponentResponse, componentCount: number): cms_types.frontend.admin.CardConfig {
     return { 
-      header: section.header ?? "error",
-      description: "",
+      header: `Component ${componentCount}`,
+      description: `${section.header.slice(0, 20)}...`,
       editable: true,
       link1: `${section.id}/paragraphs`,
       link2: `${section.id}/edit`,
@@ -37,10 +38,18 @@ export class AdminComponentsComponent {
     }
   }
 
+  precomputeConfigs() {
+    this.componentsConfigs = this.components.map((component, index) => 
+      this.getCardConfig(component, index + 1));
+  }
+
   ngOnInit() {
     this._route.params.subscribe(params => {
       const sectionId = Number.parseInt(params['sectionId']);
-      this.dataService.getComponents(sectionId).subscribe(components => this.components = components);
+      this.dataService.getComponents(sectionId).subscribe(components => {
+        this.components = Array.isArray(components) ? components : [components];
+        this.precomputeConfigs();
+      });
     });
   }
 }

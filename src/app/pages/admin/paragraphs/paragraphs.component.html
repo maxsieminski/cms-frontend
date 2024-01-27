@@ -1,4 +1,4 @@
 <div class="fixed w-full h-full">
-    <app-admin-card *ngFor="let paragraph of paragraphs" [config]="getCardConfig(paragraph)"></app-admin-card>
+    <app-admin-card *ngFor="let paragraphConfig of paragraphsConfigs" [config]="paragraphConfig"></app-admin-card>
     <app-admin-card [config]="defaultCreateNewCardConfig"></app-admin-card>
 </div>

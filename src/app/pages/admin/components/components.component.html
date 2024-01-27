@@ -1,4 +1,4 @@
 <div class="fixed w-full h-full">
-    <app-admin-card *ngFor="let component of components" [config]="getCardConfig(component)"></app-admin-card>
+    <app-admin-card *ngFor="let componentConfig of componentsConfigs" [config]="componentConfig"></app-admin-card>
     <app-admin-card [config]="defaultCreateNewCardConfig"></app-admin-card>
 </div>

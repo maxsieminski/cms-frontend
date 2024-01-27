@@ -18,15 +18,16 @@ import { CommonModule } from '@angular/common';
 })
 export class AdminSectionsComponent {
   public sections: cms_types.api.SectionResponse[] = [cms_defs.defaultSectionResponse];
+  public sectionsConfigs: cms_types.frontend.admin.CardConfig[] = [];
   public defaultCreateNewCardConfig = cms_defs.defaultCreateNewCardConfig;
   public defaultSaveCardConfig = cms_defs.defaultSaveCardConfig;
 
   public constructor(public dataService: DataService, private _route: ActivatedRoute) { }
 
-  public getCardConfig(section: cms_types.api.SectionResponse): cms_types.frontend.admin.CardConfig {
+  public getCardConfig(section: cms_types.api.SectionResponse, sectionCount: number): cms_types.frontend.admin.CardConfig {
     return { 
-      header: section.header ?? "error",
-      description: "",
+      header: `Section ${sectionCount}`,
+      description: section.header ?? "",
       editable: true,
       link1: `${section.id}/components`,
       link2: `${section.id}/edit`,
@@ -36,10 +37,18 @@ export class AdminSectionsComponent {
     }
   }
 
+  precomputeConfigs() {
+    this.sectionsConfigs = this.sections.map((section, index) => 
+      this.getCardConfig(section, index + 1));
+  }
+
   ngOnInit() {
     this._route.params.subscribe(params => {
       const pageId = Number.parseInt(params['pageId']);
-      this.dataService.getSections(pageId).subscribe(sections => this.sections = sections);
+      this.dataService.getSections(pageId).subscribe(sections => {
+        this.sections =  Array.isArray(sections) ? sections : [sections];
+        this.precomputeConfigs();
+      });
     });
   }
 }
