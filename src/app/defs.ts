@@ -2,9 +2,9 @@ import { cms_types } from "./types";
 
 
 export module cms_defs {
-    export const backendHost = process.env['BACKEND_HOST'] ?? 'localhost';
-    export const backendPort =  process.env['BACKEND_PORT'] ?? 3000;
-    export const backendUrl = `https://${backendHost}`;
+    export const backendHost = 'localhost';
+    export const backendPort =  3000;
+    export const backendUrl = "https://put-cms-c5211f180299.herokuapp.com";
     export const images = [
         "assets/art/favicon.png",
         "assets/art/hero1.webp",
