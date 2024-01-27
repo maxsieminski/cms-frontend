@@ -1,6 +1,6 @@
 <div *ngFor="let paragraph of config.paragraphs" class="col-tri" style="float: left;">
     <article class="card-team">
-        <img src="{{ config.image }}" alt="">
+        <img src="{{ paragraph.image }}" alt="" style="max-height: 14rem;">
         <h3 class="title ff-damion">{{ config.header }}</h3>
         <div class="info">
             <h3 class="ff-damion">{{ paragraph.header }}</h3>

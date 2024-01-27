@@ -1,29 +1,54 @@
 <div class="mx-auto my-10 w-1/2 h-full">
     <div *ngFor="let key of getEntityKeys()" class="flex flex-col space-y-2">
-        <label *ngIf="key !== 'category'" class="text-gray-700 select-none font-medium">{{key}}</label>
-        <form *ngIf="key === 'category' && isCreateEntity">
-            <label for="category">Choose a category: </label>
+        <label *ngIf="key !== 'category' && key !== 'image' && key !== 'href' && key !== 'position' && key !== 'changed_date' && key !== 'href_text' && key !== 'assignee' " class="text-gray-700 select-none font-medium">{{key}}</label>
+
+        <label *ngIf="key === 'name' || key ==='content' || key === 'email' && entityType === 'inquries'">{{getEntityValue(key)}}</label>
+        
+        <form *ngIf="key === 'category' && entityType !== 'inquries'">
+            <label for="category">Category: </label>
             <select [(ngModel)]="selectedCategory" name="category" id="select-category">
               <option *ngFor="let componentCategory of componentCategories" value="{{componentCategory.id}}">{{componentCategory.category_name}}</option>
             </select>
-          </form>
+        </form>
+
+        <form *ngIf="key === 'image'">
+          <label for="image">Select image </label>
+          <select [(ngModel)]="selectedImage" name="image" id="selected-image">
+            <option *ngFor="let image of images; let i = index" value="{{i}}">{{image.split("/")[2]}}</option>
+          </select>
+        </form>
+        
+        <textarea *ngIf="key === 'text'"
+        id="input-{{key}}"
+        value="{{this.getEntityValue(key)}}"
+        rows=15
+        ></textarea>
+
+        <textarea *ngIf="key === 'header' || key === 'description' || key === 'highlight_text'"
+        id="input-{{key}}"
+        value="{{this.getEntityValue(key)}}"
+        rows=3
+        ></textarea>
+
         <input
-          *ngIf="key !== 'category'"
+          *ngIf="key === 'title' || key ==='path' ||  key === 'email' && entityType !== 'inquries' || key === 'phone' || key === 'address'"
           id="input-{{key}}"
           type="text"
           name="{{key}}"
           value="{{this.getEntityValue(key)}}"
           class="input-{{key}} px-4 pb-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200"
         />
+
+        <br>
     </div>
 
-    <button *ngIf="!isCreateEntity" (click)="saveEntity()" class="w-full text-green-600 bg-green-100 hover:bg-green-200 text-sm py-2 px-4 rounded-md">
+    <button *ngIf="!isCreateEntity && entityType !== 'inquries'" (click)="saveEntity()" class="w-full text-green-600 bg-green-100 hover:bg-green-200 text-sm py-2 px-4 rounded-md">
         Save
     </button>
     <button *ngIf="isCreateEntity" (click)="createEntity()" class="w-full text-green-600 bg-green-100 hover:bg-green-200 text-sm py-2 px-4 rounded-md">
         Create
     </button>
-    <button (click)="deleteEntity()" class="w-full text-red-600 bg-red-100 hover:bg-red-200 text-sm py-2 px-4 rounded-md">
+    <button *ngIf="entityType !== 'pages'" (click)="deleteEntity()" class="w-full text-red-600 bg-red-100 hover:bg-red-200 text-sm py-2 px-4 rounded-md">
         Delete
     </button>
 

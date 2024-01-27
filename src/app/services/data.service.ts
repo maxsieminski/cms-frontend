@@ -58,14 +58,16 @@ export class DataService {
   // Setters
 
   public createData<T>(query: string, entity: T): Observable<T> {
-    console.log(`${cms_defs.backendUrl}/${query}`);
     return this.http.post<T>(`${cms_defs.backendUrl}/${query}`, entity);
   }
 
 
   // Patchers
 
-  public patchData<T>(query: string, id: number, entity: T): Observable<T> {
+  public patchData<T>(query: string, id?: number, entity?: T): Observable<T> {
+    if (!id) {
+      return this.http.patch<T>(`${cms_defs.backendUrl}/${query}`, entity);
+    }
     return this.http.patch<T>(`${cms_defs.backendUrl}/${query}/${id}`, entity);
   }
 

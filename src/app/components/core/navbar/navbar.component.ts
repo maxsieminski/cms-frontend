@@ -16,10 +16,11 @@ import { cms_defs } from '../../../defs';
 })
 export class NavbarComponent {
   public pages: cms_types.frontend.PageObject[] = [];
-  public header = cms_defs.title;
+  public config: cms_types.api.ConfigResponse = cms_defs.objects.defaultConfig;
   public constructor(private dataService: DataService) {}
 
   ngOnInit() {
     this.dataService.getPages().subscribe(pages => this.pages = pages as cms_types.frontend.PageObject[]);
+    this.dataService.getData<cms_types.api.ConfigResponse>('config').subscribe(config => this.config = config as cms_types.api.ConfigResponse);
   }
 }

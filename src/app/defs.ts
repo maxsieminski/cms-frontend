@@ -6,12 +6,24 @@ export module cms_defs {
     export const backendPort =  '3000';
     export const backendUrl = `http://${backendHost}:${backendPort}`;
     export const title = 'Kancelaria Adwokacka';
+    export const images = [
+        "assets/art/favicon.png",
+        "assets/art/hero1.webp",
+        "assets/art/hero2.webp",
+        "assets/art/hero3.webp",
+        "assets/art/overlay.webp", 
+        "assets/art/team.webp",
+        "assets/art/work1.webp", 
+        "assets/art/work2.webp", 
+        "assets/art/work3.webp"
+    ];
 
     export module objects {
         export const defaultParagraph: cms_types.frontend.ParagraphObject = {
             position: 0,
             header: "",
             text: "",
+            image: "",
             href: "",
             href_text: ""
         };
@@ -33,6 +45,16 @@ export module cms_defs {
             title: "",
             path: ""
         };
+
+        export const defaultConfig: cms_types.api.ConfigResponse = {
+            title: "Title",
+            description: "",
+            phone: "",
+            email: "",
+            highlight_text: "No text",
+            id: 1, 
+            address: "No address"
+        }
     }
 
     export const defaultSectionConfig: cms_types.frontend.SectionObject = {

@@ -1,9 +1,8 @@
 <div *ngFor="let paragraph of config.paragraphs" class="col-tri" style="float: left;">
     <article class="card-blog">
-        <img src="{{ config.image }}" alt="">
+        <img src="{{ paragraph.image }}" alt="">
         <div class="info">
-            <h3 class="mt-5 mb-5 ff-damion fc-primary">{{ config.header }}</h3>
-            <p class="ml-a mt-5">{{ paragraph.header }}</p>
+            <h3 class="mt-5 mb-5 ff-damion fc-primary">{{ paragraph.header }}</h3>
         </div>
         <p class="ml-10 mt-5 mb-20">
             {{ paragraph.text }}.

@@ -18,14 +18,12 @@ import { cms_defs } from '../../../defs';
 })
 export class AdminEditorComponent {
   private entity: cms_types.frontend.ModelCommonObject | undefined;
-  private entityType: string = "none";
-  
+  public entityType: string = "none";
+  public images = cms_defs.images;
   public componentCategories: cms_types.api.ComponentCategoryResponse[] = [];
   public isCreateEntity: boolean = false;
-  public selectedCategory: cms_types.api.ComponentCategoryResponse = {
-    id: 1,
-    category_name: 'default',
-  }
+  public selectedCategory: number = 0;
+  public selectedImage: any = "";
 
   public constructor(public dataService: DataService, private route: ActivatedRoute, private router: Router) { }
 
@@ -48,6 +46,9 @@ export class AdminEditorComponent {
     const newEntity = Object.keys(this.entity!)
     .map(key => {
       try {
+        if (key === 'image') {
+          return { "image": this.images[this.selectedImage] }
+        }
         return {
           [key]: (document.getElementById(`input-${key}`) as HTMLInputElement).value
         }
@@ -55,7 +56,7 @@ export class AdminEditorComponent {
         return;
       }
     })
-    .reduce((acc, curr) => {
+    .reduce((acc: any, curr: any) => {
       if (curr && acc) {
         const key = Object.keys(curr)[0];
         if (key.toLowerCase().includes('id') || curr[key] === '' || (curr[key] == (this.entity as any)[key])) {
@@ -71,21 +72,46 @@ export class AdminEditorComponent {
     return categoryId ? { ...newEntity, category: categoryId.value } : newEntity;
   }
 
+  private navigateUp() {
+    const url = this.router.url;
+    const isEditing = url.includes("edit");
+
+    let pathArr = url.split('/').filter(e => e !== '');
+    
+    if (isEditing) {
+      pathArr.splice(-2);
+    } else {
+      pathArr.splice(-1);
+    }
+
+    const path = pathArr.join("/");
+    this.router.navigate([path])
+  }
+
   public saveEntity() {
     if (this.entity) {
       const newEntity = this.sanitizeEntity();
-      this.dataService.patchData<any>(`${this.entityType}`, (this.entity as any)['id'], newEntity).subscribe(res => this.router.navigate(['admin']));
+      if (Object.keys(newEntity).length > 0) {
+        if (this.entityType !== 'config') {
+          this.dataService.patchData<any>(`${this.entityType}`, (this.entity as any)['id'], newEntity).subscribe(res => this.navigateUp());
+        } else {
+          this.dataService.patchData<cms_types.api.ConfigResponse>(this.entityType, undefined, newEntity).subscribe(res => this.navigateUp());
+        }
+      }
+      else {
+        alert("You haven't done any changes!");
+      }
     }
   }
 
   public createEntity() {
     const newEntity = this.sanitizeEntity();
-    this.dataService.createData<any>(this.entityType, { ...this.entity, ...newEntity }).subscribe(res => this.router.navigate(['admin']));
+    this.dataService.createData<any>(this.entityType, { ...this.entity, ...newEntity }).subscribe(res => this.navigateUp());
   }
 
   public deleteEntity() {
     if (this.entity) {
-      this.dataService.deleteData<any>(this.entityType, (this.entity as any)['id']).subscribe(res => this.router.navigate(['admin']));
+      this.dataService.deleteData<any>(this.entityType, (this.entity as any)['id']).subscribe(res => this.navigateUp());
     }
   }
 
@@ -119,7 +145,15 @@ export class AdminEditorComponent {
     if ('paragraphId' in params) {
       this.entityType = "paragraphs";
       const paragraphId = Number.parseInt(params['paragraphId']);
-      this.dataService.getParagraph(paragraphId).subscribe(paragraph => this.entity = paragraph as cms_types.frontend.ParagraphObject);
+      this.dataService.getParagraph(paragraphId).subscribe(paragraph => {
+        this.entity = paragraph as cms_types.frontend.ParagraphObject;
+        
+        for (let i = 0; i < this.images.length; i++) {
+          if ((this.entity as cms_types.frontend.ParagraphObject).image == this.images[i]) {
+            this.selectedImage = i;
+          }
+        }
+      });
     }
     else if ('componentId' in params) {
       this.entityType = "components";
@@ -130,9 +164,15 @@ export class AdminEditorComponent {
         
         this.componentCategories.map(category => {
           if (category.category_name === (this.entity as cms_types.frontend.ComponentObject).category) {
-            this.selectedCategory = category;
+            this.selectedCategory = category.id;
           }
         });
+
+        for (let i = 0; i < this.images.length; i++) {
+          if ((this.entity as cms_types.frontend.ComponentObject).image == this.images[i]) {
+            this.selectedImage = i;
+          }
+        }
       });
     }
     else if ('sectionId' in params) {
@@ -150,12 +190,18 @@ export class AdminEditorComponent {
       const inquryId = Number.parseInt(params['inquryId']);
       this.dataService.getData<cms_types.api.InuqryResponse>('inquries', inquryId).subscribe(inqury => this.entity = inqury as cms_types.api.InuqryResponse);
     }
+    else {
+      this.entityType = "config";
+      this.dataService.getData<cms_types.api.ConfigResponse>('config').subscribe(config => this.entity = config as cms_types.api.ConfigResponse);
+    }
   }
 
   ngOnInit() {
-    this.dataService.getComponentsCategories().subscribe(categories => this.componentCategories = categories as cms_types.api.ComponentCategoryResponse[]);
-    this.route.params.subscribe(params => {
-      location.href.includes('new') ? this.createInitialEntity(params) : this.getSelectedEntity(params);
+    this.dataService.getComponentsCategories().subscribe(categories => {
+      this.componentCategories = categories as cms_types.api.ComponentCategoryResponse[];
+      this.route.params.subscribe(params => {
+        location.href.includes('new') ? this.createInitialEntity(params) : this.getSelectedEntity(params);
+      });
     });
   }
 }

@@ -46,7 +46,7 @@ export class AdminSectionsComponent {
     this._route.params.subscribe(params => {
       const pageId = Number.parseInt(params['pageId']);
       this.dataService.getSections(pageId).subscribe(sections => {
-        this.sections =  Array.isArray(sections) ? sections : [sections];
+        this.sections = (Array.isArray(sections) ? sections : [sections]).filter(section => section !== null);
         this.precomputeConfigs();
       });
     });

@@ -24,6 +24,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent, title: 'Admin: Login' },
     { path: 'admin', component: AdminIndexComponent, canActivate: [adminGuard], children: [
         { path: '', component: AdminHomeComponent, canActivate: [adminGuard], title: 'Admin' },
+        { path: 'config', component: AdminEditorComponent, canActivate: [adminGuard], title: 'Admin: Config' },
         { path: 'inquries', component: InquriesComponent, canActivate: [adminGuard], title: 'Admin: Inquiries' },
         { path: 'inquries/:inquryId', canActivate: [adminGuard], component: AdminEditorComponent },
         { path: 'pages', component: AdminPagesComponent, canActivate: [adminGuard], title: 'Admin: Pages' },

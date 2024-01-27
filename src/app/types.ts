@@ -75,6 +75,7 @@ export module cms_types {
         }
 
         export interface ComponentCategoryResponse extends CommonResponse {
+            id: number;
             category_name: string;
         }
         
@@ -112,6 +113,16 @@ export module cms_types {
         export interface AuthResponse {
             data: AuthUserData;
             token: string;
+        }
+
+        export interface ConfigResponse {
+            id: number;
+            title: string;
+            email: string;
+            phone: string;
+            address: string;
+            description: string;
+            highlight_text: string;
         }
 
         export type ResponseAny = cms_types.api.ParagraphResponse | cms_types.api.ComponentResponse | cms_types.api.ComponentResponse | cms_types.api.PageResponse;

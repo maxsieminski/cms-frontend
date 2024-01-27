@@ -45,6 +45,19 @@ export class AdminHomeComponent {
     }
   }
 
+  public getConfigCardConfig(): cms_types.frontend.admin.CardConfig {
+    return {
+      header: 'Config',
+      description: `General configuration`,
+      editable: false,
+      link1: 'config',
+      link2: '',
+      link1_text: "View config",
+      link2_text: '',
+      color: 'yellow',
+    }
+  }
+
   ngOnInit() {
     this.dataService.getData<cms_types.api.PageResponse>('pages').subscribe(pages => this.pages = (Array.isArray(pages) ? pages : [pages]));
     this.dataService.getData<cms_types.api.InuqryResponse>('inquries').subscribe(inquries => this.inquries = (Array.isArray(inquries) ? inquries : [inquries]));

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { SectionComponent } from '../../section/section.component';
 import { SubHeroBannerComponent } from '../../components/banners/sub-hero-banner/sub-hero-banner.component';
+import { cms_types } from '../../types';
+import { cms_defs } from '../../defs';
+import { PagesService } from '../../services/pages.service';
 
 @Component({
   selector: 'app-blog',
@@ -12,43 +15,11 @@ import { SubHeroBannerComponent } from '../../components/banners/sub-hero-banner
   templateUrl: './blog.component.html'
 })
 export class BlogComponent {
-  // public cardConfig: CardComponentConfig = {
-  //   header: 'Blog',
-  //   cards: [
-  //     {
-  //       title: 'Card 1',
-  //       header: '2021-01-01',
-  //       text: 'This is a description of the card.',
-  //       href: 'blog',
-  //       href_text: 'Read More',
-  //       image: 'assets/art/hero1.webp'
-  //     },
-  //     {
-  //       title: 'Card 2',
-  //       header: '2021-01-01',
-  //       text: 'This is a description of the card.',
-  //       href: 'blog',
-  //       href_text: 'Read More',
-  //       image: 'assets/art/hero3.webp'
-  //     },
-  //     {
-  //       title: 'Card 13',
-  //       header: '2021-01-01',
-  //       text: 'This is a description of the card.',
-  //       href: 'blog',
-  //       href_text: 'Read More',
-  //       image: 'assets/art/hero2.webp'
-  //     },
-  //   ]
-  // }
+  public page: cms_types.frontend.PageObject = cms_defs.defaultPageConfig;
 
-  // public config: SectionConfig = {
-  //   title: 'Blog',
-  //   components: [
-  //     {
-  //       name: 'card1',
-  //       config: this.cardConfig
-  //     }
-  //   ]
-  // }
+  constructor (private pageService: PagesService) { }
+
+  ngOnInit(): void {
+    this.pageService.getPage<cms_types.api.PageResponse>("blog").subscribe(page => this.page = page as cms_types.frontend.PageObject);
+  }
 }

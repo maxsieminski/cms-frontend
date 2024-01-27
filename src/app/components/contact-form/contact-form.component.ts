@@ -28,5 +28,9 @@ export class ContactFormComponent {
     const entity = {email, name, category, content};
 
     this.dataService.createData<any>('inquries', entity).subscribe(inqury => console.log(inqury));
+
+    alert("Request sent!");
+
+    this.router.navigate(["home"]);
   }
 }

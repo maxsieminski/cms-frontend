@@ -8,7 +8,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  userData: cms_types.api.AuthUserData | undefined = undefined;
+  userData = new BehaviorSubject<cms_types.api.AuthUserData | undefined>(undefined);
+  isUser = this.userData.asObservable();
   token: string | undefined = undefined;
   authStatus = new BehaviorSubject<boolean>(false);
   isAuthenticated = this.authStatus.asObservable();
@@ -21,7 +22,7 @@ export class AuthService {
     return this.http.post<cms_types.api.AuthResponse>(`${cms_defs.backendUrl}/users/login`, {email, password}).subscribe(response => {
       if (response.token && response.data) {
         this.token = response.token;
-        this.userData = response.data;
+        this.userData.next(response.data);
         this.setToken(this.token);
       }
     })
@@ -37,6 +38,8 @@ export class AuthService {
 
     if (token) {
       this.authStatus.next(true);
+      const userValue = this.userData.value;
+      this.userData.next(userValue);
     }
 
     return token;
